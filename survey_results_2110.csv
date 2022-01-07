@@ -1,0 +1,73 @@
+Timestamp,Do you agree?,Age,Gender,Years of programming experience,"Please pick a number, try to choose a random and unique one","According to the text, why do penguins waddle?","Counts words occurrence in a given sentence, and returns a dictionary with these values.","Given an array of integers, return the places of two of them that add up to a specific value.",Returns the difference between the sum of the squares of the first n natural numbers and the square of the sum.,Returns the sum of the digits of the number 2^power.,Find the product of the digits of a given number.
+2021/05/19 4:04:21 PM GMT+3,Yes,29,Male,2-4 years,5,"Their feet are adapted to swimming, not walking.",words_counter,indices_sum_to_target,num_of_squares,i dont know,multiply_digits
+2021/05/19 4:23:10 PM GMT+3,Yes,30,Male,2-4 years,7,"Their feet are adapted to swimming, not walking.",words_count,sum_of_num_to_target,sum_of_squares_diff,sum_exp_digits,multiply_num_digits
+2021/05/30 4:13:08 PM GMT+3,Yes,26,Male,More than 5 years,8,"Their feet are adapted to swimming, not walking.",I do not know,I do not know,I do not know,I do not know,I do not know
+2021/05/30 6:52:37 PM GMT+3,Yes,27,Male,More than 5 years,2,"Their feet are adapted to swimming, not walking.",I do not know,I do not know,I do not know,I do not know,I do not know
+2021/05/30 7:46:00 PM GMT+3,Yes,26,Male,2-4 years,12,"Their feet are adapted to swimming, not walking.",I do not know,I do not know,I do not know,exponential sum,I do not know
+2021/05/30 10:32:55 PM GMT+3,Yes,26,Male,More than 5 years,9,"Their feet are adapted to swimming, not walking.",count_words,"something with ""complamantary""",diff_squares_sum,sum_exp_digits,multiply_numbers
+2021/05/30 10:53:24 PM GMT+3,Yes,27,Male,2-4 years,11,"Their feet are adapted to swimming, not walking.",words_counter,indices_sum_to_value,sum_squares_diff,sum_exp_digits,multiply_digits
+2021/05/31 12:37:21 AM GMT+3,Yes,27,Male,More than 5 years,4,"Their feet are adapted to swimming, not walking.",words_process,find_right_nums,I do not know,I do not know,digits_calc
+2021/05/31 9:58:27 AM GMT+3,Yes,23,Male,More than 5 years,12,"Their feet are adapted to swimming, not walking.",count_words,I do not know,get_diff_alg,I do not know,I do not know
+2021/05/31 2:09:31 PM GMT+3,Yes,33,Male,More than 5 years,9,"Their feet are adapted to swimming, not walking.",words_count,Index something something,square something something,multiply_digits_exponent,multiply_digits
+2021/05/31 2:10:38 PM GMT+3,Yes,29,Female,2-4 years,8,"Their feet are adapted to swimming, not walking.",word_dict,i don't know,diff_alg,i don't know,i don't know
+2021/05/31 2:15:05 PM GMT+3,Yes,36,Male,2-4 years,11,"Their feet are adapted to swimming, not walking.",words_count,i don't remember,sum_squares_diff,i don't remember,i don't remember
+2021/05/31 2:22:19 PM GMT+3,Yes,26,Female,0-1 years,8,"Their feet are adapted to swimming, not walking.",Count_words_sum,Find_target_sum,Calc_squares_sum_diff,Calc_squares_sum,Num_digit_product
+2021/05/31 3:03:35 PM GMT+3,Yes,32,Male,More than 5 years,11,"Their feet are adapted to swimming, not walking.",word_count,indices_sum_up,square_diff,I do not know,I do not know
+2021/05/31 3:04:37 PM GMT+3,Yes,32,Male,More than 5 years,4,"Their feet are adapted to swimming, not walking.",process_words,complimentary_numbers,find_diff_alg,compute_exp_sum,calc_digits
+2021/05/31 3:10:54 PM GMT+3,Yes,31,Female,More than 5 years,3,"Their feet are adapted to swimming, not walking.",words_count,chk_sum_target,num_square_diff,num_exp_sum,multi_digits
+2021/05/31 3:31:38 PM GMT+3,Yes,31,Male,More than 5 years,3,They waddle as part of their mating dance.,6,Black,Sum,Silence ,Car
+2021/05/31 3:44:02 PM GMT+3,Yes,44,Male,More than 5 years,4,"Their feet are adapted to swimming, not walking.",I do not know,I do not know,find diff,I do not know,I do not know
+2021/05/31 4:01:48 PM GMT+3,Yes,30,Female,More than 5 years,8,"Their feet are adapted to swimming, not walking.",words_dict,I don't know,I don't know,exp_num_sum,calc_digits
+2021/05/31 6:05:33 PM GMT+3,Yes,24,Male,0-1 years,6,"Their feet are adapted to swimming, not walking.",Word-process,Find_right_numbers,Compute_diff_alg,Sum_of_exp,Culc_digits
+2021/05/31 11:15:38 PM GMT+3,Yes,30,Female,More than 5 years,6,"Their feet are adapted to swimming, not walking.",word_count,"complimentary (was the nqme of the variable, not the function)",diff_alg,I don't know,find_digits
+2021/06/01 10:40:02 AM GMT+3,Yes,35,Male,More than 5 years,3,"Their feet are adapted to swimming, not walking.",count_words,sum_of_index,diff_of_squere,sum_of_digites,sum_of_squers
+2021/06/01 12:14:19 PM GMT+3,Yes,27,Male,0-1 years,11,"Their feet are adapted to swimming, not walking.",Count_words,Calculate_complemantry_indices,Calc_square_diff,Sum_of_power,Multiply_digits
+2021/06/02 4:36:31 PM GMT+3,Yes,31,Male,More than 5 years,9,"Their feet are adapted to swimming, not walking.",count_words,i do not know,sum_square_diff,power,i do not know
+2021/06/02 4:53:48 PM GMT+3,Yes,28,Female,More than 5 years,9,"Their feet are adapted to swimming, not walking.",I do not know,sum_to_target,I do not know,sum_of_digits,multiply_digits
+2021/06/02 4:59:50 PM GMT+3,Yes,30,Male,More than 5 years,11,"Their feet are adapted to swimming, not walking.",count_words,sum_index_target,sum_squares_n,sum_exp_digits,multiply_digits
+2021/06/02 5:32:53 PM GMT+3,Yes,29,Male,2-4 years,10,"Their feet are adapted to swimming, not walking.",count_words,find_right_numbers,calc_diff_squares,calc_exp_sum,calc_digits
+2021/06/02 5:45:30 PM GMT+3,Yes,36,Male,More than 5 years,7,"Their feet are adapted to swimming, not walking.",Count_words,Don't know,Sum_squares,Don't remember,Don't remember
+2021/06/02 6:50:20 PM GMT+3,Yes,32,Male,More than 5 years,5,"Their feet are adapted to swimming, not walking.",I do not know ,I do not know ,Sum_square_diff,Sum_pow_diff,I do not know 
+2021/06/02 7:12:01 PM GMT+3,Yes,30,Male,More than 5 years,8,"Their feet are adapted to swimming, not walking.",count_words,i dont know,diff_square,sum_exp,i dont know
+2021/06/02 7:34:37 PM GMT+3,Yes,29,Female,2-4 years,4,"Their feet are adapted to swimming, not walking.",Word press? ,Find right num,Calc diff algo,Calc digits sum,I don't know
+2021/06/02 10:06:29 PM GMT+3,Yes,31,Male,More than 5 years,12,"Their feet are adapted to swimming, not walking.",count_words,I do not know,return_diff,I do not know,I do not know
+2021/06/03 12:38:06 AM GMT+3,Yes,40,Prefer not to say,More than 5 years,8,"Their feet are adapted to swimming, not walking.",No,No,No,No,No
+2021/06/05 4:03:54 PM GMT+3,Yes,29,Male,2-4 years,7,"Their feet are adapted to swimming, not walking.",Word_count,I don’t know ,diff_of_sum_squares,I don’t know,I don’t know
+2021/06/06 9:56:20 AM GMT+3,Yes,20,Female,2-4 years,3,"Their feet are adapted to swimming, not walking.",Count_words,Indices_sum_to_target,Sum_of_squares_diff,Exp_sum_digits,Mul_num_digits
+2021/06/06 12:28:01 PM GMT+3,Yes,31,Male,More than 5 years,1,"Their feet are adapted to swimming, not walking.",count_words,indices_sum_to,square_diff,digits_sum,mult_digits
+2021/06/06 12:36:09 PM GMT+3,Yes,37,Male,More than 5 years,9,"Their feet are adapted to swimming, not walking.",I do not know,I do not know,I do not know,I do not know,I do not know
+2021/06/06 12:40:25 PM GMT+3,Yes,31,Male,More than 5 years,11,"Their feet are adapted to swimming, not walking.",I do not know,I do not know,I do not know,I do not know,I do not know
+2021/06/06 12:43:05 PM GMT+3,Yes,30,Male,More than 5 years,6,"Their feet are adapted to swimming, not walking.",process_words,target,calc_alg,calc_alg,calc_digits
+2021/06/06 12:51:27 PM GMT+3,Yes,50,Male,More than 5 years,7,"Their feet are adapted to swimming, not walking.",count_words,I don't know,diff_square_sum,I don't know,I don't know
+2021/06/06 1:14:54 PM GMT+3,Yes,36,Male,More than 5 years,1,"Their feet are adapted to swimming, not walking.",I do not know,I do not know,I do not know,I do not know,I do not know
+2021/06/06 2:29:33 PM GMT+3,Yes,48,Male,More than 5 years,4,"Their feet are adapted to swimming, not walking.",I do not know,I do not know,I do not know,I do not know,I do not know
+2021/06/06 6:22:07 PM GMT+3,Yes,24,Female,2-4 years,5,"Their feet are adapted to swimming, not walking.",I don’t know ,I don’t know ,I don’t know ,I don’t know ,I don’t know 
+2021/06/06 7:09:20 PM GMT+3,Yes,24,Female,2-4 years,6,"Their feet are adapted to swimming, not walking.",I don't know ,I don't know,Calc_diff or diff_algo ,I don't know,I don't know
+2021/06/06 9:07:42 PM GMT+3,Yes,28,Male,More than 5 years,8,"Their feet are adapted to swimming, not walking.",3,3,3,3,3
+2021/06/06 10:17:23 PM GMT+3,Yes,39,Male,More than 5 years,3,"Their feet are adapted to swimming, not walking.",yes,I do not know,I do not know,yes,no
+2021/06/06 11:35:49 PM GMT+3,Yes,21,Male,2-4 years,7,"Their feet are adapted to swimming, not walking.",Count_words,Sum_indices,sum_square_diff,2_n_sum_digits,digits_product
+2021/06/07 10:28:03 AM GMT+3,Yes,28,Male,More than 5 years,7,"Their feet are adapted to swimming, not walking.",word_count,"some name with the words ""list"" and ""target"" in it",diff_sum_square,sum_exp,multiply_digits
+2021/06/08 2:35:58 PM GMT+3,Yes,26,Male,2-4 years,8,"Their feet are adapted to swimming, not walking.",I don't know,I don't know,sum_squares_diff,exp_sum,I don't know
+2021/06/08 9:07:34 PM GMT+3,Yes,31,Male,More than 5 years,6,"Their feet are adapted to swimming, not walking.",count_words,find_right_numbers,i do not know,sum_exp,i do not know
+2021/06/10 1:33:30 AM GMT+3,Yes,26,Male,More than 5 years,7,"Their feet are adapted to swimming, not walking.",Words counter,I dont know,Sum square diff,I don't know,I don't know
+2021/06/10 11:38:19 AM GMT+3,Yes,37,Male,More than 5 years,1,"Their feet are adapted to swimming, not walking.",Word_coubt,I don't know ,Sum_diff,I don't know,I don't know
+2021/06/10 3:33:47 PM GMT+3,Yes,31,Male,2-4 years,10,"Their feet are adapted to swimming, not walking.",Word count,?,?,Sum digits,?
+2021/06/10 3:41:27 PM GMT+3,Yes,26,Male,2-4 years,12,"Their feet are adapted to swimming, not walking.",Words_value,I don't know ,Square_sum_alg,I don't know ,I don't know 
+2021/06/10 3:47:12 PM GMT+3,Yes,23,Male,0-1 years,4,"Their feet are adapted to swimming, not walking.",count_words,find_right_place,compute_difficulty,I don't know,count_digits
+2021/06/10 4:04:07 PM GMT+3,Yes,58,Female,More than 5 years,8,"Their feet are adapted to swimming, not walking.",I do not know,I do not know,I do not know,I do not know,I do not know
+2021/06/10 5:20:08 PM GMT+3,Yes,55,Male,2-4 years,5,"Their feet are adapted to swimming, not walking.",words_counter,I do not know,I do not know,I do not know,digits_multiply
+2021/06/11 1:05:39 AM GMT+3,Yes,32,Male,More than 5 years,11,"Their feet are adapted to swimming, not walking.",word_counter,i do not know,diff_sum_squares,sum_num_digits,i do not know
+2021/06/12 12:25:03 PM GMT+3,Yes,30,Female,2-4 years,10,"Their feet are adapted to swimming, not walking.",process_sentence,i dont know,algo_diff,digits_sum,i dont remember
+2021/06/14 3:36:13 PM GMT+3,Yes,24,Female,2-4 years,9,"Their feet are adapted to swimming, not walking.",I don’t know ,Count_diff_target ,Sum_square_diff,I don’t know ,Digits_product
+2021/06/14 4:06:12 PM GMT+3,Yes,22,Male,2-4 years,3,"Their feet are adapted to swimming, not walking.",word_count,I don't know,I don't know,I don't know,I don't know
+2021/06/14 4:28:10 PM GMT+3,Yes,26,Male,0-1 years,11,"Their feet are adapted to swimming, not walking.",words_counter,indices_sum_to_target,sum_square_diff,sum_exp_digits,multiply_digits
+2021/06/15 11:54:45 AM GMT+3,Yes,25,Male,0-1 years,5,"Their feet are adapted to swimming, not walking.",words_count,i do not know,sum of squares,i do not know,sum of digits
+2021/06/15 2:51:56 PM GMT+3,Yes,23,Female,0-1 years,1,"Their feet are adapted to swimming, not walking.",word_counter,indices_sum_to_target,sum_squares_diff,I do not know,multiply_num_digits
+2021/06/21 1:41:24 PM GMT+3,Yes,27,Female,More than 5 years,6,"Their feet are adapted to swimming, not walking.",I don’t know,I don’t know,I don’t know,Sum_of_ints,n
+2021/06/15 12:52:48 PM GMT+3,Yes,28,Female,2-4 years,2,"Their feet are adapted to swimming, not walking.",I do not know,I do not know,I do not know,I do not know,digits_calc
+2021/06/15 1:39:10 PM GMT+3,Yes,26,Female,2-4 years,10,"Their feet are adapted to swimming, not walking.",words_process,find_right_numbers,culc_dif_alg,compute_exp_num,digits_culc
+2021/06/15 2:31:11 PM GMT+3,Yes,30,Male,2-4 years,12,"Their feet are adapted to swimming, not walking.",i don't know,find_right_num,calc_diff_alg,calc_exp_sum,calc_digits
+2021/06/15 2:40:14 PM GMT+3,Yes,28,Male,2-4 years,10,"Their feet are adapted to swimming, not walking.",Count_words,I do not know ,I do not know ,I do not know ,Digits_calc
+2021/06/15 3:37:38 PM GMT+3,Yes,30,Male,2-4 years,2,"Their feet are adapted to swimming, not walking.",count_words,check_value,sum_square,check_power,I do not know
+2021/06/15 4:13:03 PM GMT+3,Yes,30,Male,More than 5 years,8,"Their feet are adapted to swimming, not walking.",I do not know,I do not know,I do not know,I do not know,I do not know
+2021/06/16 11:33:49 PM GMT+3,Yes,30,Male,2-4 years,4,"Their feet are adapted to swimming, not walking.",I don't know,find_right_numbers,calc_diff_alg,sum_number ,I don't know 
