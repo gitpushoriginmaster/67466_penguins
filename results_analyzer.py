@@ -29,10 +29,10 @@ ANSWER_KEY = \
      }
 
 
-def preprocess_data():
+def preprocess_data(filename: str):
     global df
 
-    df = pd.read_csv('survey_results_2110.csv')
+    df = pd.read_csv(filename)
     df = df.drop(labels='Timestamp', axis=1)
     df = df.drop(labels='Do you agree?', axis=1)
     df = df.drop(labels='According to the text, why do penguins waddle?', axis=1)
@@ -283,7 +283,8 @@ def plot_success_cdf():
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument('--show', default=False, help='If True, results will be displayed. Else, saved.')
+    parser.add_argument('--filename', type=str, default='survey_results_2110.csv', help='File name of CSV data source')
+    parser.add_argument('--show', type=bool, default=False, help='If True, results will be displayed. Else, saved.')
     args = parser.parse_args()
 
     if not args.show:
@@ -292,17 +293,17 @@ if __name__ == '__main__':
         if not path.exists(final_directory):
             makedirs(final_directory)
 
-    preprocess_data()
+    preprocess_data(filename=args.filename)
 
     plot_by_q(str_dist_th=0.5)
     plot_by_q(str_dist_th=0.8)
     plot_by_q(str_dist_th=1.0)
-    plot_by_enum('Gender', Gender)
-    plot_by_enum('Experience', Experience)
-    plot_by_enum('Age', Age)
-    plot_responders_data('Gender', Gender)
-    plot_responders_data('Experience', Experience)
-    plot_responders_data('Age', Age)
+    plot_by_enum(enum_type_name='Gender', enum_type=Gender)
+    plot_by_enum(enum_type_name='Experience', enum_type=Experience)
+    plot_by_enum(enum_type_name='Age', enum_type=Age)
+    plot_responders_data(enum_type_name='Gender', enum_type=Gender)
+    plot_responders_data(enum_type_name='Experience', enum_type=Experience)
+    plot_responders_data(enum_type_name='Age', enum_type=Age)
     plot_success_histogram(str_dist_th=0.5)
     plot_success_histogram(str_dist_th=0.8)
     plot_success_histogram(str_dist_th=1.0)
