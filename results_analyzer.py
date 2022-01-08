@@ -30,47 +30,57 @@ ANSWER_KEY = \
 
 
 def preprocess_data(filename: str):
+
     global df
 
-    df = pd.read_csv(filename)
-    df = df.drop(labels='Timestamp', axis=1)
-    df = df.drop(labels='Do you agree?', axis=1)
-    df = df.drop(labels='According to the text, why do penguins waddle?', axis=1)
+    if path.exists(f"{filename[:-4]}.pkl"):
+        print(1)
+        df = pd.read_pickle(f"{filename[:-4]}.pkl")
+    else:
+        print(2)
+        assert filename[-4:] == '.csv'
+        df = pd.read_csv(filename)
 
-    df.columns = ['age', 'gender', 'experience', 'group',
-                  'a1', 'a2', 'a3', 'a4', 'a5']
+        df = df.drop(labels='Timestamp', axis=1)
+        df = df.drop(labels='Do you agree?', axis=1)
+        df = df.drop(labels='According to the text, why do penguins waddle?', axis=1)
 
-    df['experience'] = df['experience'].apply(
-        lambda x:
-        Experience.one_or_less if x == '0-1 years' else
-        Experience.two_to_four if x == '2-4 years' else
-        Experience.five_or_more)
+        df.columns = ['age', 'gender', 'experience', 'group',
+                      'a1', 'a2', 'a3', 'a4', 'a5']
 
-    df['gender'] = df['gender'].apply(
-        lambda x:
-        Gender.Male if x == 'Male' else
-        Gender.Female if x == 'Female' else
-        Gender.Other)
+        df['experience'] = df['experience'].apply(
+            lambda x:
+            Experience.one_or_less if x == '0-1 years' else
+            Experience.two_to_four if x == '2-4 years' else
+            Experience.five_or_more)
 
-    df['age'] = df['age'].apply(
-        lambda x:
-        Age.age_20_24 if 20 <= int(x) < 25 else
-        Age.age_25_29 if 25 <= int(x) < 30 else
-        Age.age_30_34 if 30 <= int(x) < 35 else
-        Age.age_35_plus)
+        df['gender'] = df['gender'].apply(
+            lambda x:
+            Gender.Male if x == 'Male' else
+            Gender.Female if x == 'Female' else
+            Gender.Other)
 
-    df['group'] = df['group'].apply(
-        lambda x:
-        Group.Meaningful if int(x) % 2 != 0
-        else Group.Meaningless)
+        df['age'] = df['age'].apply(
+            lambda x:
+            Age.age_20_24 if 20 <= int(x) < 25 else
+            Age.age_25_29 if 25 <= int(x) < 30 else
+            Age.age_30_34 if 30 <= int(x) < 35 else
+            Age.age_35_plus)
 
-    for a in ['a1', 'a2', 'a3', 'a4', 'a5']:
-        df[a + '_score'] = df.apply(
-            lambda row:
-            ((SequenceMatcher(
-                None, row[a].lower().replace(' ', '_'),
-                ANSWER_KEY[int(a[-1])][row['group']]).ratio()) ** 2),
-            axis=1)
+        df['group'] = df['group'].apply(
+            lambda x:
+            Group.Meaningful if int(x) % 2 != 0
+            else Group.Meaningless)
+
+        for a in ['a1', 'a2', 'a3', 'a4', 'a5']:
+            df[a + '_score'] = df.apply(
+                lambda row:
+                ((SequenceMatcher(
+                    None, row[a].lower().replace(' ', '_'),
+                    ANSWER_KEY[int(a[-1])][row['group']]).ratio()) ** 2),
+                axis=1)
+
+        df.to_pickle(f"{filename[:-4]}.pkl")
 
 
 def plot_by_q(str_dist_th: float = 1.0):
