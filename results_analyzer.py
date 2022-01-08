@@ -34,10 +34,9 @@ def preprocess_data(filename: str):
     global df
 
     if path.exists(f"{filename[:-4]}.pkl"):
-        print(1)
         df = pd.read_pickle(f"{filename[:-4]}.pkl")
+
     else:
-        print(2)
         assert filename[-4:] == '.csv'
         df = pd.read_csv(filename)
 
@@ -79,6 +78,7 @@ def preprocess_data(filename: str):
                     None, row[a].lower().replace(' ', '_'),
                     ANSWER_KEY[int(a[-1])][row['group']]).ratio()) ** 2),
                 axis=1)
+            df
 
         df.to_pickle(f"{filename[:-4]}.pkl")
 
