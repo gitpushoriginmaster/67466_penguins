@@ -78,7 +78,6 @@ def preprocess_data(filename: str):
                     None, row[a].lower().replace(' ', '_'),
                     ANSWER_KEY[int(a[-1])][row['group']]).ratio()) ** 2),
                 axis=1)
-            df
 
         df.to_pickle(f"{filename[:-4]}.pkl")
 
