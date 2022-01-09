@@ -27,10 +27,41 @@ ANSWER_KEY = \
      4: {Group.Meaningful: 'sum_exp_digits',
          Group.Meaningless: 'compute_exp_sum'},
      }
+COLUMNS_DROPPED = [
+    'Timestamp',
+    'Do you agree?',
+    'Answer 1',
+    'Answer 2',
+    'Answer 3',
+    'Answer 4',
+    'Answer 5',
+    'Valid 1',
+    'Valid 2',
+    'Valid 3',
+    'Valid 4',
+    'Valid 5',
+    'According to the text, why do penguins waddle?',
+]
+
+
+def filter_valid_answers_by_label(sub_df: pd.DataFrame, a_len: np.ndarray):
+    """ Fixes to score 0 if label is not 1 and counts into a_len when label is 1"""
+    for j in range(5):
+        for i, tag in enumerate(sub_df[f"l{j + 1}"]):  # iterate over row s
+            c_i = sub_df.columns.get_loc(f"a{j + 1}_score")
+            if str(tag) != "1":
+                sub_df.iloc[i, c_i] = 0
+            else:
+                a_len[j] += 1
 
 
 def preprocess_data(filename: str):
-
+    global a_len_meaningful
+    a_len_meaningful = np.zeros(5)
+    global a_len_meaningless
+    a_len_meaningless = np.zeros(5)
+    global a_len_general
+    a_len_general = np.zeros(5)
     global df
 
     if path.exists(f"{filename[:-4]}.pkl"):
@@ -40,12 +71,18 @@ def preprocess_data(filename: str):
         assert filename[-4:] == '.csv'
         df = pd.read_csv(filename)
 
-        df = df.drop(labels='Timestamp', axis=1)
-        df = df.drop(labels='Do you agree?', axis=1)
-        df = df.drop(labels='According to the text, why do penguins waddle?', axis=1)
+        for column_name in COLUMNS_DROPPED:
+            df = df.drop(labels=column_name, axis=1)
 
         df.columns = ['age', 'gender', 'experience', 'group',
-                      'a1', 'a2', 'a3', 'a4', 'a5']
+                      'a1', 'l1',
+                      'a2', 'l2',
+                      'a3', 'l3',
+                      'a4', 'l4',
+                      'a5', 'l5'
+                      ]
+
+        df.astype(dtype=str)
 
         df['experience'] = df['experience'].apply(
             lambda x:
@@ -71,15 +108,25 @@ def preprocess_data(filename: str):
             Group.Meaningful if int(x) % 2 != 0
             else Group.Meaningless)
 
-        for a in ['a1', 'a2', 'a3', 'a4', 'a5']:
-            df[a + '_score'] = df.apply(
+        for i in range(1, 5 + 1):
+            answer_col = f"a{i}"
+
+            df[answer_col + '_score'] = df.apply(
                 lambda row:
                 ((SequenceMatcher(
-                    None, row[a].lower().replace(' ', '_'),
-                    ANSWER_KEY[int(a[-1])][row['group']]).ratio()) ** 2),
+                    a=row[answer_col].lower().replace(' ', '_'),
+                    b=ANSWER_KEY[int(i)][row['group']]).ratio()) ** 2),
                 axis=1)
 
-        df.to_pickle(f"{filename[:-4]}.pkl")
+    meaningful_df = df[df['group'] == Group.Meaningful]
+    meaningless_df = df[df['group'] == Group.Meaningless]
+
+    # Calculate validity of each occurrence of 1 for each group and in general (the general is to correct all scores)
+    filter_valid_answers_by_label(meaningful_df, a_len_meaningful)
+    filter_valid_answers_by_label(meaningless_df, a_len_meaningless)
+    filter_valid_answers_by_label(df, a_len_general)
+
+    df.to_pickle(f"{filename[:-4]}.pkl")
 
 
 def plot_by_q(str_dist_th: float = 1.0):
@@ -89,15 +136,15 @@ def plot_by_q(str_dist_th: float = 1.0):
     meaningful_success, meaningless_success = [], []
     meaningful_df = df[df['group'] == Group.Meaningful]
     meaningless_df = df[df['group'] == Group.Meaningless]
-    for a in ['a1', 'a2', 'a3', 'a4', 'a5']:
+    for i, a in enumerate(['a1', 'a2', 'a3', 'a4', 'a5']):
         meaningful_success.append(
             round(100 * meaningful_df[
-                meaningful_df[a + '_score'] >= str_dist_th].size /
-                  meaningful_df.size, 1))
+                meaningful_df[a + '_score'] >= str_dist_th].shape[0] /  # changed to shape[0] from size
+                  a_len_meaningful[i], 1))
         meaningless_success.append(
             round(100 * meaningless_df[
-                meaningless_df[a + '_score'] >= str_dist_th].size /
-                  meaningless_df.size, 1))
+                meaningless_df[a + '_score'] >= str_dist_th].shape[0] /  # changed to shape[0] from size
+                  a_len_meaningless[i], 1))
 
     x = np.arange(len(labels))  # the label locations
     width = 0.35  # the width of the bars
@@ -110,7 +157,7 @@ def plot_by_q(str_dist_th: float = 1.0):
 
     # Add some text for labels, title and custom x-axis tick labels, etc.
     ax.set_ylabel('Success rate [%]')
-    ax.set_ylim((0, 40))
+    ax.set_ylim((0, 70))
     ax.set_title(f"Scores by question and group (th={str_dist_th})")
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
@@ -258,9 +305,9 @@ def plot_success_cdf():
     meaningless_df = df[df['group'] == Group.Meaningless]
 
     for n in range(1, 5 + 1):
-        column_name = f"a{n}_score"
         plt.clf()
         fig, ax = plt.subplots()
+        column_name = f"a{n}_score"
 
         meaningful_stats_df = meaningful_df.groupby(column_name)[column_name].agg('count').pipe(pd.DataFrame) \
             .rename(columns={column_name: 'frequency'})
@@ -292,7 +339,7 @@ def plot_success_cdf():
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument('--filename', type=str, default='survey_results_2110.csv', help='File name of CSV data source')
+    parser.add_argument('--filename', type=str, default='survey_results_2112.csv', help='File name of CSV data source')
     parser.add_argument('--show', type=bool, default=False, help='If True, results will be displayed. Else, saved.')
     args = parser.parse_args()
 
