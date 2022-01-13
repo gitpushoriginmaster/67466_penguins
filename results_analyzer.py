@@ -240,10 +240,11 @@ def plot_responders_data(enum_type_name: str, enum_type: Enum):
     labels = [enum_type[k] for k in list(enum_type.__members__)]
     label_type_name = type(labels[0]).__name__.lower()
     counter = []
+    total_responders = df.shape[0]
 
     for label in labels:
         label_df = df[df[label_type_name] == label]
-        counter.append(len(label_df) / 72 * 100)
+        counter.append(len(label_df) / total_responders * 100)
 
     x = np.arange(len(labels))  # the label locations
     width = 0.35  # the width of the bars
