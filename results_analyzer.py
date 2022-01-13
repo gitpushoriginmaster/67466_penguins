@@ -339,7 +339,7 @@ def plot_success_cdf():
         ax.set_xlim((0, 1))
         ax.set_ylabel('Probability')
         ax.set_ylim((0, 1))
-        ax.set_title(f"CDF of answer score for Q{n}")
+        ax.set_title(f"CDF of answer score for the function of '{ANSWER_KEY[n][Group.Meaningful]}'")
         ax.legend(loc='upper left')
         ax.spines[:].set_visible(False)
 
