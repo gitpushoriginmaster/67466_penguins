@@ -139,6 +139,7 @@ def preprocess_data(filename: str):
     filter_valid_answers_by_label(df, a_len_general)
 
     df.to_pickle(f"{filename[:-4]}.pkl")
+    df.to_csv(path.join(RESULTS_DIR, f"processed_{filename[:-4]}.csv"))
 
 
 def plot_by_q(str_dist_th: float = 1.0):
@@ -317,10 +318,10 @@ def plot_success_cdf():
     meaningful_df = df[df['group'] == Group.Meaningful]
     meaningless_df = df[df['group'] == Group.Meaningless]
 
-    for n in range(1, 5 + 1):
+    for i in range(1, 5 + 1):
         plt.clf()
         fig, ax = plt.subplots()
-        column_name = f"a{n}_score"
+        column_name = f"a{i}_score"
 
         meaningful_stats_df = meaningful_df.groupby(column_name)[column_name].agg('count').pipe(pd.DataFrame) \
             .rename(columns={column_name: 'frequency'})
@@ -339,7 +340,7 @@ def plot_success_cdf():
         ax.set_xlim((0, 1))
         ax.set_ylabel('Probability')
         ax.set_ylim((0, 1))
-        ax.set_title(f"CDF of answer score for the function of '{ANSWER_KEY[n][Group.Meaningful]}'")
+        ax.set_title(f"CDF of answer score for the function of '{ANSWER_KEY[i][Group.Meaningful]}'")
         ax.legend(loc='upper left')
         ax.spines[:].set_visible(False)
 
@@ -347,8 +348,9 @@ def plot_success_cdf():
         if args.show:
             plt.show(legend=None)
         else:
-            plt.savefig(path.join(RESULTS_DIR, f"plot_success_cdf_q{n}.pdf"))
-
+            plt.savefig(path.join(RESULTS_DIR, f"plot_success_cdf_q{i}.pdf"))
+        meaningful_stats_df.to_csv(path.join(RESULTS_DIR, "cdf", f"Q{i}_meaningful.csv"))
+        meaningless_stats_df.to_csv(path.join(RESULTS_DIR, "cdf", f"Q{i}_meaningless.csv"))
 
 if __name__ == '__main__':
     parser = ArgumentParser()
@@ -361,6 +363,8 @@ if __name__ == '__main__':
         final_directory = path.join(current_directory, RESULTS_DIR)
         if not path.exists(final_directory):
             makedirs(final_directory)
+        if not path.exists(path.join(final_directory, "cdf")):
+            makedirs(path.join(final_directory, "cdf"))
 
     preprocess_data(filename=args.filename)
 
