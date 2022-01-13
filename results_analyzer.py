@@ -8,7 +8,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+# Font size options: 'xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'
+plt.rcParams.update({
+    'axes.titlesize': 'large',
+    'axes.labelsize': 'large',
+    'legend.fontsize': 'large',
+    'xtick.labelsize': 'medium',
+    'ytick.labelsize': 'medium',
+                     })
 plt.style.use('ggplot')
+
 Gender = Enum('Gender', ['Male', 'Female', 'Other'])
 Experience = Enum('Experience', ['one_or_less', 'two_to_four', 'five_or_more'])
 Group = Enum('Group', ['Meaningful', 'Meaningless'])
@@ -355,16 +364,15 @@ if __name__ == '__main__':
 
     preprocess_data(filename=args.filename)
 
-    plot_by_q(str_dist_th=0.5)
     plot_by_q(str_dist_th=0.8)
-    plot_by_q(str_dist_th=1.0)
-    plot_by_enum(enum_type_name='Gender', enum_type=Gender)
-    plot_by_enum(enum_type_name='Experience', enum_type=Experience)
-    plot_by_enum(enum_type_name='Age', enum_type=Age)
-    plot_responders_data(enum_type_name='Gender', enum_type=Gender)
-    plot_responders_data(enum_type_name='Experience', enum_type=Experience)
-    plot_responders_data(enum_type_name='Age', enum_type=Age)
-    plot_success_histogram(str_dist_th=0.5)
-    plot_success_histogram(str_dist_th=0.8)
-    plot_success_histogram(str_dist_th=1.0)
-    plot_success_cdf()
+    # plot_by_q(str_dist_th=1.0)
+    # plot_by_enum(enum_type_name='Gender', enum_type=Gender)
+    # plot_by_enum(enum_type_name='Experience', enum_type=Experience)
+    # plot_by_enum(enum_type_name='Age', enum_type=Age)
+    # plot_responders_data(enum_type_name='Gender', enum_type=Gender)
+    # plot_responders_data(enum_type_name='Experience', enum_type=Experience)
+    # plot_responders_data(enum_type_name='Age', enum_type=Age)
+    # plot_success_histogram(str_dist_th=0.5)
+    # plot_success_histogram(str_dist_th=0.8)
+    # plot_success_histogram(str_dist_th=1.0)
+    # plot_success_cdf()
