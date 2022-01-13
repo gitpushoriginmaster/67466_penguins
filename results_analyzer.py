@@ -66,7 +66,7 @@ def filter_valid_answers_by_label(sub_df: pd.DataFrame, a_len: np.ndarray):
 
 def _score(str1: str, str2: str):
     return max(SequenceMatcher(a=str1, b=str2).ratio(),
-               SequenceMatcher(a=str2, b=str1).ratio()) ** 2
+               SequenceMatcher(a=str2, b=str1).ratio())
 
 
 def preprocess_data(filename: str):
