@@ -15,7 +15,7 @@ plt.rcParams.update({
     'legend.fontsize': 'large',
     'xtick.labelsize': 'medium',
     'ytick.labelsize': 'medium',
-                     })
+})
 plt.style.use('ggplot')
 
 Gender = Enum('Gender', ['Male', 'Female', 'Other'])
@@ -23,7 +23,8 @@ Experience = Enum('Experience', ['one_or_less', 'two_to_four', 'five_or_more'])
 Group = Enum('Group', ['Meaningful', 'Meaningless'])
 Age = Enum('Age', ['age_20_24', 'age_25_29', 'age_30_34', 'age_35_plus', ])
 
-RESULTS_DIR = f"results_{strftime('%y%m%d_%H%M%S', localtime())}"
+TIMESTAMP = f"results_{strftime('%y%m%d_%H%M%S', localtime())}"
+
 ANSWER_KEY = \
     {5: {Group.Meaningful: 'multiply_digits',
          Group.Meaningless: 'digits_calc'},
@@ -36,6 +37,12 @@ ANSWER_KEY = \
      4: {Group.Meaningful: 'sum_exp_digits',
          Group.Meaningless: 'compute_exp_sum'},
      }
+
+COLUMN_ORDER_DROP_NAME = {
+    "basic": "Reordered",
+    "reorder": "Corrected"
+}
+
 COLUMNS_DROPPED = [
     'Timestamp',
     'Do you agree?',
@@ -69,7 +76,7 @@ def _score(str1: str, str2: str):
                SequenceMatcher(a=str2, b=str1).ratio())
 
 
-def preprocess_data(filename: str):
+def preprocess_data(filename: str, order_str: str):
     global a_len_meaningful
     a_len_meaningful = np.zeros(5)
     global a_len_meaningless
@@ -78,12 +85,17 @@ def preprocess_data(filename: str):
     a_len_general = np.zeros(5)
     global df
 
-    if path.exists(f"{filename[:-4]}.pkl"):
-        df = pd.read_pickle(f"{filename[:-4]}.pkl")
+    if path.exists(f"{filename[:-4]}_processed_{order_str}.pkl"):
+        df = pd.read_pickle(f"{filename[:-4]}_processed_{order_str}.pkl")
 
     else:
+
         assert filename[-4:] == '.csv'
         df = pd.read_csv(filename)
+
+        for column_name in df.columns:
+            if COLUMN_ORDER_DROP_NAME[order_str] in column_name:
+                df = df.drop(labels=column_name, axis=1)
 
         for column_name in COLUMNS_DROPPED:
             df = df.drop(labels=column_name, axis=1)
@@ -138,8 +150,8 @@ def preprocess_data(filename: str):
     filter_valid_answers_by_label(meaningless_df, a_len_meaningless)
     filter_valid_answers_by_label(df, a_len_general)
 
-    df.to_pickle(f"{filename[:-4]}.pkl")
-    df.to_csv(path.join(RESULTS_DIR, f"processed_{filename[:-4]}.csv"))
+    df.to_pickle(f"{filename[:-4]}_processed_{order_str}.pkl")
+    df.to_csv(f"{filename[:-4]}_processed_{order_str}.csv")
 
 
 def plot_by_q(str_dist_th: float = 1.0):
@@ -170,7 +182,7 @@ def plot_by_q(str_dist_th: float = 1.0):
 
     # Add some text for labels, title and custom x-axis tick labels, etc.
     ax.set_ylabel('Success rate [%]')
-    ax.set_ylim((0, 70))
+    ax.set_ylim((0, 80))
     ax.set_title(f"Scores by question and group (th={str_dist_th})")
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
@@ -181,7 +193,7 @@ def plot_by_q(str_dist_th: float = 1.0):
     if args.show:
         plt.show()
     else:
-        plt.savefig(path.join(RESULTS_DIR, f"plot_by_q_{str_dist_th}.pdf"))
+        plt.savefig(path.join(output_dir, f"plot_by_q_{str_dist_th}.pdf"))
 
 
 def plot_by_enum(enum_type_name: str, enum_type: Enum):
@@ -241,7 +253,7 @@ def plot_by_enum(enum_type_name: str, enum_type: Enum):
     if args.show:
         plt.show()
     else:
-        plt.savefig(path.join(RESULTS_DIR, f"plot_by_enum_{enum_type_name}.pdf"))
+        plt.savefig(path.join(output_dir, f"plot_by_enum_{enum_type_name}.pdf"))
 
 
 def plot_responders_data(enum_type_name: str, enum_type: Enum):
@@ -274,7 +286,7 @@ def plot_responders_data(enum_type_name: str, enum_type: Enum):
     if args.show:
         plt.show()
     else:
-        plt.savefig(path.join(RESULTS_DIR, f"plot_responders_data_{enum_type_name}.pdf"))
+        plt.savefig(path.join(output_dir, f"plot_responders_data_{enum_type_name}.pdf"))
 
 
 def plot_success_histogram(str_dist_th: float = 1.0):
@@ -311,7 +323,7 @@ def plot_success_histogram(str_dist_th: float = 1.0):
     if args.show:
         plt.show(legend=None)
     else:
-        plt.savefig(path.join(RESULTS_DIR, f"plot_success_histogram_{str_dist_th}.pdf"))
+        plt.savefig(path.join(output_dir, f"plot_success_histogram_{str_dist_th}.pdf"))
 
 
 def plot_success_cdf():
@@ -348,35 +360,47 @@ def plot_success_cdf():
         if args.show:
             plt.show(legend=None)
         else:
-            plt.savefig(path.join(RESULTS_DIR, f"plot_success_cdf_q{i}.pdf"))
-        meaningful_stats_df.to_csv(path.join(RESULTS_DIR, "cdf", f"Q{i}_meaningful.csv"))
-        meaningless_stats_df.to_csv(path.join(RESULTS_DIR, "cdf", f"Q{i}_meaningless.csv"))
+            plt.savefig(path.join(output_dir, f"plot_success_cdf_q{i}.pdf"))
+        meaningful_stats_df.to_csv(path.join(output_dir, "cdf", f"Q{i}_meaningful.csv"))
+        meaningless_stats_df.to_csv(path.join(output_dir, "cdf", f"Q{i}_meaningless.csv"))
+
+
+def plot_success_cdf_order_comparison():
+    pass
+
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument('--filename', type=str, default='survey_results_2112.csv', help='File name of CSV data source')
+    parser.add_argument('--filename', type=str, default='survey_results_2112_reorder.csv',
+                        help='File name of CSV data source')
     parser.add_argument('--show', type=bool, default=False, help='If True, results will be displayed. Else, saved.')
     args = parser.parse_args()
 
-    if not args.show:
-        current_directory = getcwd()
-        final_directory = path.join(current_directory, RESULTS_DIR)
-        if not path.exists(final_directory):
-            makedirs(final_directory)
-        if not path.exists(path.join(final_directory, "cdf")):
-            makedirs(path.join(final_directory, "cdf"))
+    global output_dir
 
-    preprocess_data(filename=args.filename)
+    for order in ["basic", "reorder"]:
+        if not args.show:
+            cwd = getcwd()
 
-    plot_by_q(str_dist_th=0.8)
-    plot_by_q(str_dist_th=1.0)
-    plot_by_enum(enum_type_name='Gender', enum_type=Gender)
-    plot_by_enum(enum_type_name='Experience', enum_type=Experience)
-    plot_by_enum(enum_type_name='Age', enum_type=Age)
-    plot_responders_data(enum_type_name='Gender', enum_type=Gender)
-    plot_responders_data(enum_type_name='Experience', enum_type=Experience)
-    plot_responders_data(enum_type_name='Age', enum_type=Age)
-    plot_success_histogram(str_dist_th=0.5)
-    plot_success_histogram(str_dist_th=0.8)
-    plot_success_histogram(str_dist_th=1.0)
-    plot_success_cdf()
+            output_dir = path.join(cwd, TIMESTAMP, order)
+            if not path.exists(output_dir):
+                makedirs(output_dir)
+            output_cdf_dir = path.join(output_dir, "cdf")
+            if not path.exists(output_cdf_dir):
+                makedirs(output_cdf_dir)
+
+        preprocess_data(filename=args.filename, order_str=order)
+
+        plot_by_q(str_dist_th=0.8)
+        plot_by_q(str_dist_th=1.0)
+        plot_by_enum(enum_type_name='Gender', enum_type=Gender)
+        plot_by_enum(enum_type_name='Experience', enum_type=Experience)
+        plot_by_enum(enum_type_name='Age', enum_type=Age)
+        plot_responders_data(enum_type_name='Gender', enum_type=Gender)
+        plot_responders_data(enum_type_name='Experience', enum_type=Experience)
+        plot_responders_data(enum_type_name='Age', enum_type=Age)
+        plot_success_histogram(str_dist_th=0.5)
+        plot_success_histogram(str_dist_th=0.8)
+        plot_success_histogram(str_dist_th=1.0)
+        plot_success_cdf()
+    plot_success_cdf_order_comparison()
