@@ -366,7 +366,38 @@ def plot_success_cdf():
 
 
 def plot_success_cdf_order_comparison():
-    pass
+    for i in range(1, 5 + 1):
+        plt.clf()
+        fig, ax = plt.subplots()
+
+        meaningful_basic_stats_df = pd.read_csv(f"{TIMESTAMP}/basic/cdf/Q{i}_meaningful.csv")
+        meaningless_basic_stats_df = pd.read_csv(f"{TIMESTAMP}/basic/cdf/Q{i}_meaningless.csv")
+        meaningful_reorder_stats_df = pd.read_csv(f"{TIMESTAMP}/reorder/cdf/Q{i}_meaningful.csv")
+        meaningless_reorder_stats_df = pd.read_csv(f"{TIMESTAMP}/reorder/cdf/Q{i}_meaningless.csv")
+
+        ax.plot(meaningful_basic_stats_df[f"a{i}_score"], meaningful_basic_stats_df['cdf'],
+                drawstyle='steps-post', marker='.', label='Meaningful (Basic)', clip_on=False, ls='-', c='r')
+        ax.plot(meaningless_basic_stats_df[f"a{i}_score"], meaningless_basic_stats_df['cdf'],
+                drawstyle='steps-post', marker='.', label='Meaningless (Basic)', clip_on=False, ls='-', c='b')
+        ax.plot(meaningful_reorder_stats_df[f"a{i}_score"], meaningful_reorder_stats_df['cdf'],
+                drawstyle='steps-post', marker='.', label='Meaningful (Reorder)', clip_on=False, ls='--', c='r')
+        ax.plot(meaningless_reorder_stats_df[f"a{i}_score"], meaningless_reorder_stats_df['cdf'],
+                drawstyle='steps-post', marker='.', label='Meaningless (Reorder)', clip_on=False, ls='--', c='b')
+
+        # Add some text for labels, title and custom x-axis tick labels, etc.
+        ax.set_xlabel('Score')
+        ax.set_xlim((0, 1))
+        ax.set_ylabel('Probability')
+        ax.set_ylim((0, 1))
+        ax.set_title(f"CDF of answer score for the function of '{ANSWER_KEY[i][Group.Meaningful]}'")
+        ax.legend(loc='upper left')
+        ax.spines[:].set_visible(False)
+
+        fig.tight_layout()
+        if args.show:
+            plt.show(legend=None)
+        else:
+            plt.savefig(path.join(cwd, TIMESTAMP, f"plot_success_cdf_q{i}.pdf"))
 
 
 if __name__ == '__main__':
