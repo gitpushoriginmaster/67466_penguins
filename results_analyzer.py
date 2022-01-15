@@ -378,7 +378,7 @@ if __name__ == '__main__':
 
     global output_dir
 
-    for order in ["basic", "reorder"]:
+    for order in COLUMN_ORDER_DROP_NAME.keys():
         if not args.show:
             cwd = getcwd()
 
